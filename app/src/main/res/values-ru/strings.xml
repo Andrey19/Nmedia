@@ -1,4 +1,12 @@
 <resources>
-    <string name="app_name">Нмедиа</string>
-    <string name="nmedia">Нмедиа!</string>
+    <string name="description_post_author_avatar">Post author avatar</string>
+    <string name="description_post_menu">Post menu</string>
+    <string name="content"> Нетология. Университет интернет-профессий будущего , это новая нетология! Когда-то давным-давно нетология начиналась с интенсивных курсов по онлайн-маркетингу. Затем были курсы по дизайну, разработке, аналитике и менеджменту. Мы растем сами и помогаем расти студентам: от новичков до уверенных в себе профессионалов. Но самое главное остается с нами: мы верим, что у каждого уже есть сила, которая заставляет их хотеть большего, стремиться выше, бегать быстрее. Наша миссия состоит в том, чтобы помочь нам встать на путь роста и запустить цепочку изменений → http://netolo.gy/fyb</string>
+    <string name="author"> Нетология. Университет интернет-профессий будущего</string>
+    <string name="published"> 21 мая в 18:36</string>
+    <string name="liked">0</string>
+    <string name="shared">0</string>
+    <string name="viewed">0</string>
+    <string name="app_name">НМедиа</string>
+    <string name="nmedia">НМедиа!</string>
 </resources>
