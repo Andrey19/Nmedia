@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity() {
                     if (post.likedByMe) R.drawable.ic_liked_24 else R.drawable.ic_like_24
                 )
                 if (post.likedByMe) post.likes++ else post.likes--
-                liked?.text = post.likes.toString()
+                liked?.text = post.formatValue(post.likes)
             }
 
             share.setOnClickListener {
