@@ -1,8 +1,6 @@
 package ru.netology.nmedia.util
 
-class Utility {
-    companion object Factory {
-
+object Utility  {
         fun formatValue(value: Int): String {
             when (value) {
                 in 0..999 -> return value.toString()
@@ -23,5 +21,4 @@ class Utility {
                 }
             }
         }
-    }
 }
