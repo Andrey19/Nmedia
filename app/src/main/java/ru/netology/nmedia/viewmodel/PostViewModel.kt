@@ -43,6 +43,13 @@ class PostViewModel: ViewModel() {
         }
         edited.value = edited.value?.copy(content = text)
     }
+    fun changeVideo(video: String) {
+        val text = video.trim()
+        if (edited.value?.video == text) {
+            return
+        }
+        edited.value = edited.value?.copy(video = text)
+    }
     fun like(id:Long) = repository.likeById(id)
     fun shared(id:Long) = repository.sharedById(id)
     fun removeById(id:Long) = repository.removeById(id)
