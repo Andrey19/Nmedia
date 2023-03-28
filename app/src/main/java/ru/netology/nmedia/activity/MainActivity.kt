@@ -4,16 +4,12 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.Toast
 import androidx.activity.result.launch
 import androidx.activity.viewModels
-import ru.netology.nmedia.R
 import ru.netology.nmedia.adapter.OnInteractionListener
 import ru.netology.nmedia.adapter.PostsAdapter
 import ru.netology.nmedia.databinding.ActivityMainBinding
 import ru.netology.nmedia.dto.Post
-import ru.netology.nmedia.util.AndroidUtils
 import ru.netology.nmedia.viewmodel.PostViewModel
 
 
@@ -30,8 +26,8 @@ class MainActivity : AppCompatActivity() {
                 viewModel.cancel()
                 return@registerForActivityResult
             }
-                viewModel.changeContent(result.content)
-                viewModel.changeVideo(result.video)
+                viewModel.changeContent(result.first)
+                viewModel.changeVideo(result.second)
                 viewModel.save()
         }
 
@@ -60,14 +56,20 @@ class MainActivity : AppCompatActivity() {
         })
 
         binding.list.adapter = adapter
+
         viewModel.data.observe(this) { posts ->
-            adapter.submitList(posts)
+            val newPost = adapter.currentList.size < posts.size
+            adapter.submitList(posts) {
+                if (newPost) {
+                    binding.list.smoothScrollToPosition(0)
+                }
+            }
         }
 
         val newPostLauncher = registerForActivityResult(NewPostResultContract()) { result ->
             result ?: return@registerForActivityResult
-            viewModel.changeContent(result.content)
-            viewModel.changeVideo(result.video)
+            viewModel.changeContent(result.first)
+            viewModel.changeVideo(result.second)
             viewModel.save()
         }
 
