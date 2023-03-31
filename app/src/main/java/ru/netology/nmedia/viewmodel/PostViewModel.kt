@@ -15,7 +15,8 @@ private val empty = Post(
     likedByMe = false,
     likes = 0,
     shared = 0,
-    published = ""
+    published = "",
+    video = ""
 )
 class PostViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -23,12 +24,23 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
+    val viewed = MutableLiveData(empty)
     fun save() {
         edited.value?.let {
             repository.save(it)
         }
         edited.value = empty
 
+    }
+    fun setView(post: Post){
+        viewed.value = post
+    }
+
+    fun getView(): Post{
+        return viewed.value!!
+    }
+    fun getPostById(id: Long):Post{
+        return repository.getPostById(id)
     }
     fun cancel() {
         edited.value = empty

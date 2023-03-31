@@ -1,5 +1,6 @@
 package ru.netology.nmedia.adapter
 
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,6 +16,7 @@ import ru.netology.nmedia.util.Utility
 typealias OnLikeListener = (post: Post) -> Unit
 
 interface OnInteractionListener {
+    fun onView(post: Post) {}
     fun onLike(post: Post) {}
     fun onShared(post: Post) {}
     fun onEdit(post: Post) {}
@@ -71,6 +73,12 @@ class PostViewHolder(
                         }
                     }
                 }.show()
+            }
+            content.setOnClickListener{
+                onInteractionListener.onView(post)
+            }
+            root.setOnClickListener{
+                onInteractionListener.onView(post)
             }
             like.setOnClickListener {
                 onInteractionListener.onLike(post)
