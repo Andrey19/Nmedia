@@ -10,14 +10,11 @@ import android.widget.PopupMenu
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.viewpager2.adapter.FragmentViewHolder
 import ru.netology.nmedia.R
-import ru.netology.nmedia.activity.NewPostFragment.Companion.content
-import ru.netology.nmedia.activity.NewPostFragment.Companion.video
-import ru.netology.nmedia.databinding.FragmentEditPostBinding
+import ru.netology.nmedia.activity.EditPostFragment.Companion.content
+import ru.netology.nmedia.activity.EditPostFragment.Companion.video
 import ru.netology.nmedia.databinding.FragmetViewPostBinding
-import ru.netology.nmedia.util.AndroidUtils
-import ru.netology.nmedia.util.StringArg
+import ru.netology.nmedia.util.LongArg
 import ru.netology.nmedia.util.Utility
 import ru.netology.nmedia.viewmodel.PostViewModel
 
@@ -25,8 +22,7 @@ import ru.netology.nmedia.viewmodel.PostViewModel
 class ViewPostFragment : Fragment() {
 
     companion object {
-        var Bundle.content: String? by StringArg
-        var Bundle.video: String? by StringArg
+        var Bundle.id: Long by LongArg
     }
 
     private val viewModel: PostViewModel by viewModels(
@@ -42,8 +38,8 @@ class ViewPostFragment : Fragment() {
             container,
             false
         )
-        var post = viewModel.getView()
-        post =  viewModel.getPostById(post.id)
+        val postId = arguments?.id!!
+        var post =  viewModel.getPostById(postId)
         binding.apply {
             author.text = post.author
             published.text = post.published
@@ -51,7 +47,7 @@ class ViewPostFragment : Fragment() {
             share.text = Utility.formatValue(post.shared)
             like.isChecked = post.likedByMe
             like.text = Utility.formatValue(post.likes)
-            if (post.video.isNullOrEmpty()){
+            if (post.video.isEmpty()){
                 videoGroup.visibility = View.GONE
             } else{
                 videoGroup.visibility = View.VISIBLE
@@ -82,18 +78,23 @@ class ViewPostFragment : Fragment() {
                     }
                 }.show()
             }
+
+            viewModel.data.observe(viewLifecycleOwner) {
+                post =  viewModel.getPostById(postId)
+                if (post.id > 0 ) {
+                    like.isChecked = post.likedByMe
+                    like.text = Utility.formatValue(post.likes)
+                    share.text = Utility.formatValue(post.shared)
+                }
+            }
+
             like.setOnClickListener {
                 viewModel.like(post.id)
-                post =  viewModel.getPostById(post.id)
-                like.isChecked = post.likedByMe
-                like.text = Utility.formatValue(post.likes)
+
             }
 
             share.setOnClickListener {
                 viewModel.shared(post.id)
-                post =  viewModel.getPostById(post.id)
-                share.text = Utility.formatValue(post.shared)
-
             }
             video.setOnClickListener {
                 val url = post.video

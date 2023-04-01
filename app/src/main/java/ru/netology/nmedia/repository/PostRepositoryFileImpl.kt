@@ -129,8 +129,8 @@ class PostRepositoryFileImpl(
         sync()
     }
 
-    override fun getPostById(id: Long) :Post {
-        return posts.find { it.id == id }!!
+    override fun getPostById(id: Long) :Post? {
+        return posts.find { it.id == id }
     }
     override fun save(post: Post) {
         if (post.id == 0L) {

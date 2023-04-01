@@ -13,8 +13,6 @@ import ru.netology.nmedia.databinding.CardPostBinding
 import ru.netology.nmedia.dto.Post
 import ru.netology.nmedia.util.Utility
 
-typealias OnLikeListener = (post: Post) -> Unit
-
 interface OnInteractionListener {
     fun onView(post: Post) {}
     fun onLike(post: Post) {}
@@ -50,7 +48,7 @@ class PostViewHolder(
             share.text = Utility.formatValue(post.shared)
             like.isChecked = post.likedByMe
             like.text = Utility.formatValue(post.likes)
-            if (post.video.isNullOrEmpty()){
+            if (post.video.isEmpty()){
                 videoGroup.visibility = View.GONE
             } else{
                 videoGroup.visibility = View.VISIBLE

@@ -24,7 +24,6 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
 
     val data = repository.getAll()
     val edited = MutableLiveData(empty)
-    val viewed = MutableLiveData(empty)
     fun save() {
         edited.value?.let {
             repository.save(it)
@@ -32,15 +31,13 @@ class PostViewModel(application: Application) : AndroidViewModel(application) {
         edited.value = empty
 
     }
-    fun setView(post: Post){
-        viewed.value = post
-    }
 
-    fun getView(): Post{
-        return viewed.value!!
-    }
     fun getPostById(id: Long):Post{
-        return repository.getPostById(id)
+        val post = repository.getPostById(id)
+        if (post != null ){
+            return post
+        }
+        return empty
     }
     fun cancel() {
         edited.value = empty
