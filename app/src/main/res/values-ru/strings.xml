@@ -21,4 +21,10 @@
     <string name="play">play</string>
     <string name="post_text">Текст поста</string>
     <string name="error_empty_content">Контент не может быть пустым</string>
+    <string name="google_play_unavailable">Google Api Недоступно</string>
+    <string name="notification_user_liked">%1$s поставил лайк посту %2$s</string>
+    <string name="notification_else">Action %1$s not allowed in this version \n Update your application</string>
+    <string name="notification_new_post">User %1$s make New Post </string>
+    <string name="channel_remote_name">Уведомления с сервера</string>
+    <string name="channel_remote_description">Уведомления с удалённого сервера</string>
 </resources>
